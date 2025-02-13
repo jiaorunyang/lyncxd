@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 绿韵农创集萃园</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .about-container {
+            padding-top: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 农场图片展示区 */
+        .farm-showcase {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 20px;
+            margin-bottom: 60px;
+        }
+
+        .farm-showcase img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .farm-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .farm-overlay h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .farm-overlay p {
+            font-size: 20px;
+            max-width: 800px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* 项目背景部分 */
+        .background-section {
+            padding: 80px 0;
+            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+        }
+
+        .background-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .background-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .background-header h2 {
+            font-size: 36px;
+            color: #2c5530;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .decorative-line {
+            width: 80px;
+            height: 3px;
+            background: #2c5530;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .decorative-line::before,
+        .decorative-line::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #2c5530;
+            border-radius: 50%;
+            top: -1.5px;
+        }
+
+        .decorative-line::before { left: -3px; }
+        .decorative-line::after { right: -3px; }
+
+        .background-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .background-text {
+            flex: 1;
+        }
+
+        .quote-block {
+            position: relative;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .quote-icon {
+            color: #2c5530;
+            font-size: 24px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .main-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .vision-block {
+            padding: 20px;
+            border-left: 4px solid #2c5530;
+            background: rgba(44, 85, 48, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .vision-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .key-points {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .point:hover {
+            transform: translateY(-5px);
+        }
+
+        .point i {
+            font-size: 24px;
+            color: #2c5530;
+        }
+
+        .point span {
+            font-size: 14px;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .background-image {
+            flex: 1;
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .background-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .background-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(44, 85, 48, 0.1), rgba(44, 85, 48, 0.3));
+        }
+
+        /* 我们的优势部分 */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .advantage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .advantage-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: #2c5530;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        .advantage-card h3 {
+            color: #2c5530;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .advantage-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .farm-showcase {
+                height: 400px;
+            }
+
+            .farm-overlay h1 {
+                font-size: 36px;
+            }
+
+            .farm-overlay p {
+                font-size: 16px;
+            }
+
+            .background-content {
+                flex-direction: column;
+            }
+
+            .background-image {
+                height: 300px;
+            }
+
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .key-points {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .point {
+                flex: 1;
+                min-width: calc(50% - 15px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="imgs/logo.jpg" alt="绿韵农创集萃园">
+                <h1>绿韵农创集萃园</h1>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="about.html" class="active">关于我们</a>
+                <a href="products.html">产品服务</a>
+                <a href="shop.html">线上商城</a>
+                <a href="farm.html">虚拟农田</a>
+                <a href="activities.html">活动体验</a>
+                <a href="news.html">新闻资讯</a>
+                <a href="contact.html">联系我们</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="about-container">
+                <!-- 农场图片展示 -->
+                <section class="farm-showcase">
+                    <img src="imgs/farm-aerial.jpg" alt="绿韵农创集萃园全景">
+                    <div class="farm-overlay">
+                        <h1>绿韵农创集萃园</h1>
+                        <p>致力于打造集有机农业、休闲观光、农耕体验于一体的现代化农业园区</p>
+                    </div>
+                </section>
+
+                <!-- 项目背景 -->
+                <section class="background-section" id="background">
+                    <div class="background-container">
+                        <div class="background-header">
+                            <h2>项目背景</h2>
+                            <div class="decorative-line"></div>
+                        </div>
+                        
+                        <div class="background-content">
+                            <div class="background-text">
+                                <div class="quote-block">
+                                    <i class="fas fa-quote-left quote-icon"></i>
+                                    <p class="main-text">绿韵农创集萃园应运而生于城市化进程加快、人们对健康生活需求日益增长的时代背景下。我们致力于通过现代农业科技与传统农耕文化的融合，为城市居民打造一片回归自然、体验生活的绿色乐园。</p>
+                                </div>
+                                
+                                <div class="vision-block">
+                                    <p class="vision-text">在这里，您不仅可以享受到优质的有机农产品，还能亲身参与农耕活动，感受大自然的馈赠，收获健康与快乐。</p>
+                                </div>
+
+                                <div class="key-points">
+                                    <div class="point">
+                                        <i class="fas fa-leaf"></i>
+                                        <span>有机种植</span>
+                                    </div>
+                                    <div class="point">
+                                        <i class="fas fa-sync-alt"></i>
+                                        <span>生态循环</span>
+                                    </div>
+                                    <div class="point">
+                                        <i class="fas fa-users"></i>
+                                        <span>共享农业</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="background-image">
+                                <img src="imgs/farm-view.jpg" alt="农场实景">
+                                <div class="image-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 我们的优势 -->
+                <section class="advantages-section">
+                    <h2 class="section-title">我们的优势</h2>
+                    <div class="advantages-grid">
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>纯天然有机种植</h3>
+                            <p>严格遵守有机种植标准，不使用化学农药和肥料，确保农产品的天然、健康、安全。</p>
+                        </div>
+
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>线上线下融合</h3>
+                            <p>通过微信小程序、抖音店铺等平台，实现线上购物、农田管理、活动预约等功能。</p>
+                        </div>
+
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>专业技术团队</h3>
+                            <p>拥有经验丰富的农业专家团队，为农产品质量和农耕体验提供专业保障。</p>
+                        </div>
+
+                        <div class="advantage-card">
+                            <div class="advantage-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3>完善体验系统</h3>
+                            <p>提供种植、采摘、加工等全方位农耕体验，让您深入了解农业生产全过程。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- AI 助手对话窗口 -->
+        <div class="chat-widget">
+            <!-- 聊天窗口内容 -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

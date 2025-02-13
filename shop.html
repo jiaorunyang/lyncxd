@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线上商城 - 绿韵农创集萃园</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .shop-container {
+            padding-top: 100px; /* 为固定导航栏留出空间 */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .shop-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 30px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            background: white;
+            box-shadow: 0 0 0 2px #2c5530;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            color: #2c5530;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .sort-box select {
+            padding: 12px 25px;
+            border: 2px solid #2c5530;
+            border-radius: 25px;
+            background: white;
+            color: #2c5530;
+            font-size: 15px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .sort-box select:hover {
+            background: #2c5530;
+            color: white;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            background: #f5f5f5;
+            color: #666;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active,
+        .tab-btn:hover {
+            background: #2c5530;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            position: relative;
+            padding-top: 100%;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 85, 48, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .overlay-content {
+            color: white;
+            text-align: center;
+        }
+
+        .overlay-content i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .badge-hot {
+            background: #ff4d4f;
+            color: white;
+        }
+
+        .badge-new {
+            background: #52c41a;
+            color: white;
+        }
+
+        .badge-limited {
+            background: #faad14;
+            color: white;
+        }
+
+        .product-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            color: #2c5530;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .product-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .currency {
+            color: #ff4d4f;
+            font-size: 16px;
+            margin-right: 2px;
+        }
+
+        .amount {
+            color: #ff4d4f;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .decimal {
+            color: #ff4d4f;
+            font-size: 16px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .product-rating i {
+            color: #faad14;
+            font-size: 14px;
+        }
+
+        .product-rating span {
+            color: #666;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .cart-btn, .buy-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .cart-btn {
+            background: #e8f5e9;
+            color: #2c5530;
+        }
+
+        .cart-btn:hover {
+            background: #c8e6c9;
+        }
+
+        .buy-btn {
+            background: #2c5530;
+            color: white;
+        }
+
+        .buy-btn:hover {
+            background: #234426;
+        }
+
+        @media (max-width: 768px) {
+            .search-section {
+                flex-direction: column;
+            }
+            
+            .sort-box select {
+                width: 100%;
+            }
+            
+            .category-tabs {
+                padding-bottom: 10px;
+            }
+            
+            .tab-btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+
+            .product-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 优化购买弹窗样式 */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-content h3 {
+            margin: 0;
+            color: #2c5530;
+        }
+
+        .product-info .description {
+            color: #666;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .confirm-btn {
+            background: #2c5530 !important;
+        }
+
+        .cancel-btn {
+            background: #eee !important;
+        }
+
+        .quantity-selector span {
+            color: #666;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="imgs/logo.jpg" alt="绿韵农创集萃园">
+                <h1>绿韵农创集萃园</h1>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="about.html">关于我们</a>
+                <a href="products.html">产品服务</a>
+                <a href="shop.html" class="active">线上商城</a>
+                <a href="farm.html">虚拟农田</a>
+                <a href="activities.html">活动体验</a>
+                <a href="news.html">新闻资讯</a>
+                <a href="contact.html">联系我们</a>
+            </nav>
+        </header>
+
+        <div class="shop-container">
+            <div class="shop-header">
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="text" placeholder="搜索商品...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="sort-box">
+                        <select>
+                            <option value="default">默认排序</option>
+                            <option value="price-asc">价格从低到高</option>
+                            <option value="price-desc">价格从高到低</option>
+                            <option value="sales">销量优先</option>
+                            <option value="new">最新上架</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="category-tabs">
+                    <button class="tab-btn active">全部商品</button>
+                    <button class="tab-btn">新鲜蔬菜</button>
+                    <button class="tab-btn">时令水果</button>
+                    <button class="tab-btn">农家特产</button>
+                    <button class="tab-btn">礼品礼盒</button>
+                    <button class="tab-btn">有机认证</button>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/vegetable-box.jpg" alt="有机蔬菜礼盒">
+                        <div class="product-badge badge-hot">热销</div>
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-eye"></i>
+                                <span>查看详情</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-category">有机认证</div>
+                        <h3 class="product-title">有机蔬菜礼盒</h3>
+                        <p class="product-description">精选时令有机蔬菜，营养美味，新鲜直达</p>
+                        <div class="product-meta">
+                            <div class="product-price">
+                                <span class="currency">¥</span>
+                                <span class="amount">128</span>
+                                <span class="decimal">.00</span>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>(4.5)</span>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="cart-btn">
+                                <i class="fas fa-shopping-cart"></i>
+                                加入购物车
+                            </button>
+                            <button class="buy-btn">立即购买</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/9a0ed409da0742d004309dd36335d2d.jpg" alt="时令水果">
+                        <div class="product-badge">新品</div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">时令水果礼盒</h3>
+                        <p class="product-description">当季新鲜水果，果香四溢，甜蜜滋味</p>
+                        <div class="product-price">¥198.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/1678adb8bde824b25ccf9f2d82e49e2.png" alt="农家特产">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">农家特产礼包</h3>
+                        <p class="product-description">传统工艺制作，地道美味，家乡味道</p>
+                        <div class="product-price">¥258.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/c557af958d9711d70d7d04a82d6f16b.jpg" alt="绿色农产品">
+                        <div class="product-badge">限量</div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">绿色农产品套装</h3>
+                        <p class="product-description">无污染种植，绿色健康，品质保证</p>
+                        <div class="product-price">¥168.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/d2477a972d172c8561685a6be4f39d0.jpg" alt="有机水果">
+                        <div class="product-badge">特惠</div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">有机水果组合</h3>
+                        <p class="product-description">精选有机认证水果，健康美味</p>
+                        <div class="product-price">¥188.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/ebe3a3f06a4a29209779bc73d07e867.png" alt="农场礼盒">
+                        <div class="product-badge">畅销</div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">农场特选礼盒</h3>
+                        <p class="product-description">农场优选产品，礼盒包装</p>
+                        <div class="product-price">¥298.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/f000820fd508faaba4aa0200c463841.png" alt="季节果篮">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">时令果篮</h3>
+                        <p class="product-description">当季水果精选，送礼佳品</p>
+                        <div class="product-price">¥238.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imgs/image.png" alt="农场套餐">
+                        <div class="product-badge">推荐</div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">农场月度套餐</h3>
+                        <p class="product-description">每月定期配送，新鲜便捷</p>
+                        <div class="product-price">¥458.00</div>
+                        <button class="buy-button">立即购买</button>
+                    </div>
+                </div>
+            </div>
+            <button class="load-more">加载更多商品</button>
+        </div>
+
+        <!-- AI 助手对话窗口 -->
+        <div class="chat-widget">
+            <div class="chat-button" onclick="toggleChat()">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chat-window" id="chatWindow">
+                <!-- 聊天窗口内容 -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+    // 商品数据数组
+    const products = [
+        {
+            id: 1,
+            name: "有机蔬菜礼盒",
+            price: 128.00,
+            category: "新鲜蔬菜",
+            description: "精选时令有机蔬菜，营养美味，新鲜直达",
+            image: "imgs/4e7b92aac4c9251c1483e7c17b87753.png",
+            badge: "热销",
+            isOrganic: true,
+            sales: 256,
+            date: "2024-02-10"
+        },
+        {
+            id: 2,
+            name: "时令水果礼盒",
+            price: 198.00,
+            category: "时令水果",
+            description: "当季新鲜水果，果香四溢，甜蜜滋味",
+            image: "imgs/9a0ed409da0742d004309dd36335d2d.jpg",
+            badge: "新品",
+            isOrganic: false,
+            sales: 128,
+            date: "2024-02-11"
+        },
+        {
+            id: 3,
+            name: "农家特产礼包",
+            price: 258.00,
+            category: "农家特产",
+            description: "传统工艺制作，地道美味，家乡味道",
+            image: "imgs/1678adb8bde824b25ccf9f2d82e49e2.png",
+            badge: null,
+            isOrganic: false,
+            sales: 189,
+            date: "2024-02-08"
+        },
+        {
+            id: 4,
+            name: "绿色农产品套装",
+            price: 168.00,
+            category: "礼品礼盒",
+            description: "无污染种植，绿色健康，品质保证",
+            image: "imgs/c557af958d9711d70d7d04a82d6f16b.jpg",
+            badge: "限量",
+            isOrganic: true,
+            sales: 145,
+            date: "2024-02-09"
+        },
+        {
+            id: 5,
+            name: "有机水果组合",
+            price: 188.00,
+            category: "时令水果",
+            description: "精选有机认证水果，健康美味",
+            image: "imgs/d2477a972d172c8561685a6be4f39d0.jpg",
+            badge: "特惠",
+            isOrganic: true,
+            sales: 167,
+            date: "2024-02-12"
+        },
+        {
+            id: 6,
+            name: "农场特选礼盒",
+            price: 298.00,
+            category: "礼品礼盒",
+            description: "农场优选产品，礼盒包装",
+            image: "imgs/ebe3a3f06a4a29209779bc73d07e867.png",
+            badge: "畅销",
+            isOrganic: false,
+            sales: 234,
+            date: "2024-02-07"
+        },
+        {
+            id: 7,
+            name: "时令果篮",
+            price: 238.00,
+            category: "时令水果",
+            description: "当季水果精选，送礼佳品",
+            image: "imgs/f000820fd508faaba4aa0200c463841.png",
+            badge: null,
+            isOrganic: false,
+            sales: 178,
+            date: "2024-02-06"
+        },
+        {
+            id: 8,
+            name: "农场月度套餐",
+            price: 458.00,
+            category: "礼品礼盒",
+            description: "每月定期配送，新鲜便捷",
+            image: "imgs/image.png",
+            badge: "推荐",
+            isOrganic: true,
+            sales: 98,
+            date: "2024-02-13"
+        }
+    ];
+
+    // 渲染商品列表
+    function renderProducts(productsToRender) {
+        const grid = document.querySelector('.products-grid');
+        grid.innerHTML = productsToRender.map(product => `
+            <div class="product-card" data-category="${product.category}" data-price="${product.price}">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">¥${product.price.toFixed(2)}</div>
+                    <button class="buy-button" onclick="handleBuy(${product.id})">立即购买</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 分类筛选功能
+    document.querySelectorAll('.tab-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.textContent;
+            document.querySelector('.tab-btn.active').classList.remove('active');
+            button.classList.add('active');
+            
+            let filteredProducts = products;
+            if (category !== '全部商品') {
+                if (category === '有机认证') {
+                    filteredProducts = products.filter(p => p.isOrganic);
+                } else {
+                    filteredProducts = products.filter(p => p.category === category);
+                }
+            }
+            renderProducts(filteredProducts);
+        });
+    });
+
+    // 排序功能
+    document.querySelector('.sort-box select').addEventListener('change', (e) => {
+        const sortType = e.target.value;
+        let sortedProducts = [...products];
+        
+        switch(sortType) {
+            case 'price-asc':
+                sortedProducts.sort((a, b) => a.price - b.price);
+                break;
+            case 'price-desc':
+                sortedProducts.sort((a, b) => b.price - a.price);
+                break;
+            case 'sales':
+                sortedProducts.sort((a, b) => b.sales - a.sales);
+                break;
+            case 'new':
+                sortedProducts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                break;
+        }
+        
+        renderProducts(sortedProducts);
+    });
+
+    // 搜索功能
+    function handleSearch() {
+        const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
+        const filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) || 
+            product.description.toLowerCase().includes(searchTerm)
+        );
+        renderProducts(filteredProducts);
+    }
+
+    document.querySelector('.search-box button').addEventListener('click', handleSearch);
+    document.querySelector('.search-box input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    });
+
+    // 修改购买功能
+    let currentProductId = null;
+
+    function handleBuy(productId) {
+        currentProductId = productId;
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'purchase-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>确认购买</h3>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="product-info">
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="info">
+                        <h4>${product.name}</h4>
+                        <p class="description">${product.description}</p>
+                        <p class="price">¥${product.price.toFixed(2)}</p>
+                    </div>
+                </div>
+                <div class="quantity-selector">
+                    <span>购买数量：</span>
+                    <button onclick="updateQuantity(-1)">-</button>
+                    <input type="number" value="1" min="1" id="quantity" onchange="updateTotal()">
+                    <button onclick="updateQuantity(1)">+</button>
+                </div>
+                <div class="total">总计：¥<span id="total-price">${product.price.toFixed(2)}</span></div>
+                <div class="buttons">
+                    <button class="confirm-btn" onclick="confirmPurchase(${productId})">确认购买</button>
+                    <button class="cancel-btn" onclick="closeModal()">取消</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // 更新购买数量和总价
+    function updateQuantity(change) {
+        const input = document.getElementById('quantity');
+        const totalPrice = document.getElementById('total-price');
+        const product = products.find(p => p.id === currentProductId);
+        
+        let newValue = parseInt(input.value) + change;
+        if (newValue < 1) newValue = 1;
+        input.value = newValue;
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const quantity = parseInt(document.getElementById('quantity').value);
+        const product = products.find(p => p.id === currentProductId);
+        const totalPrice = document.getElementById('total-price');
+        totalPrice.textContent = (product.price * quantity).toFixed(2);
+    }
+
+    // 确认购买
+    function confirmPurchase(productId) {
+        const quantity = document.getElementById('quantity').value;
+        const product = products.find(p => p.id === productId);
+        const total = product.price * quantity;
+        
+        // 这里可以添加支付逻辑
+        const confirmMessage = `
+            购买成功！
+            商品：${product.name}
+            数量：${quantity}
+            总价：¥${total.toFixed(2)}
+            
+            我们将尽快为您发货！
+        `;
+        
+        alert(confirmMessage);
+        closeModal();
+        
+        // 更新销量
+        product.sales += parseInt(quantity);
+        renderProducts(products.slice(0, currentPage * itemsPerPage));
+    }
+
+    // 关闭弹窗
+    function closeModal() {
+        const modal = document.querySelector('.purchase-modal');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    // 加载更多功能
+    let currentPage = 1;
+    const itemsPerPage = 8;
+
+    document.querySelector('.load-more').addEventListener('click', () => {
+        currentPage++;
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const moreProducts = products.slice(start, end);
+        
+        if (moreProducts.length === 0) {
+            document.querySelector('.load-more').style.display = 'none';
+            return;
+        }
+        
+        renderProducts([...document.querySelectorAll('.product-card'), ...moreProducts]);
+    });
+
+    // 初始化页面
+    renderProducts(products.slice(0, itemsPerPage));
+    </script>
+</body>
+</html> 

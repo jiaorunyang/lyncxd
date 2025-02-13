@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动体验 - 绿韵农创集萃园</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="imgs/logo.jpg" alt="绿韵农创集萃园">
+                <h1>绿韵农创集萃园</h1>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="about.html">关于我们</a>
+                <a href="products.html">产品服务</a>
+                <a href="shop.html">线上商城</a>
+                <a href="farm.html">虚拟农田</a>
+                <a href="activities.html" class="active">活动体验</a>
+                <a href="news.html">新闻资讯</a>
+                <a href="contact.html">联系我们</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="activities-section">
+                <div class="page-banner">
+                    <div class="banner-content">
+                        <h1>活动体验</h1>
+                        <p>感受农耕乐趣，体验自然生活</p>
+                    </div>
+                </div>
+
+                <div class="activities-container">
+                    <div class="activities-grid">
+                        <!-- 亲子农耕卡片 -->
+                        <div class="activity-card">
+                            <div class="activity-image">
+                                <img src="imgs/family-farming.jpg" alt="亲子农耕">
+                                <div class="activity-date">
+                                    <span class="date-number">15</span>
+                                    <span class="date-month">三月</span>
+                                </div>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-tag">亲子农耕</div>
+                                <h3>亲子农耕体验</h3>
+                                <p>让孩子体验农耕乐趣，感受大自然的魅力</p>
+                                <div class="activity-info">
+                                    <div class="info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2024-03-15</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>09:00-12:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>限额20组家庭</span>
+                                    </div>
+                                </div>
+                                <button class="signup-btn">立即报名</button>
+                            </div>
+                        </div>
+
+                        <!-- 有机种植课堂卡片 -->
+                        <div class="activity-card">
+                            <div class="activity-image">
+                                <img src="imgs/organic-class.jpg" alt="有机种植课堂">
+                                <div class="activity-date">
+                                    <span class="date-number">20</span>
+                                    <span class="date-month">三月</span>
+                                </div>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-tag">农业课堂</div>
+                                <h3>有机种植课堂</h3>
+                                <p>专业农艺师教授有机种植技术</p>
+                                <div class="activity-info">
+                                    <div class="info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2024-03-20</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>14:00-16:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>限额30人</span>
+                                    </div>
+                                </div>
+                                <button class="signup-btn">立即报名</button>
+                            </div>
+                        </div>
+
+                        <!-- 时令采摘活动卡片 -->
+                        <div class="activity-card">
+                            <div class="activity-image">
+                                <img src="imgs/harvest-activity.jpg" alt="时令采摘">
+                                <div class="activity-date">
+                                    <span class="date-number">25</span>
+                                    <span class="date-month">三月</span>
+                                </div>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-tag">采摘活动</div>
+                                <h3>时令采摘活动</h3>
+                                <p>亲手采摘新鲜时令果蔬</p>
+                                <div class="activity-info">
+                                    <div class="info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2024-03-25</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>10:00-15:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>限额50人</span>
+                                    </div>
+                                </div>
+                                <button class="signup-btn">立即报名</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .activities-section {
+                        padding-top: 80px;
+                    }
+
+                    .activities-container {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                        padding: 40px 20px;
+                    }
+
+                    .activities-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                        gap: 30px;
+                    }
+
+                    .activity-card {
+                        background: white;
+                        border-radius: 15px;
+                        overflow: hidden;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                        transition: transform 0.3s ease;
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                    }
+
+                    .activity-card:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .activity-image {
+                        position: relative;
+                        height: 220px;
+                        overflow: hidden;
+                    }
+
+                    .activity-image img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.3s ease;
+                    }
+
+                    .activity-card:hover .activity-image img {
+                        transform: scale(1.1);
+                    }
+
+                    .activity-date {
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        background: rgba(44, 85, 48, 0.9);
+                        color: white;
+                        padding: 12px;
+                        border-radius: 12px;
+                        text-align: center;
+                        min-width: 70px;
+                    }
+
+                    .date-number {
+                        display: block;
+                        font-size: 28px;
+                        font-weight: bold;
+                        line-height: 1.2;
+                        margin-bottom: 4px;
+                    }
+
+                    .date-month {
+                        font-size: 14px;
+                        opacity: 0.9;
+                    }
+
+                    .activity-content {
+                        padding: 25px;
+                        flex-grow: 1;
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .activity-tag {
+                        display: inline-block;
+                        padding: 6px 15px;
+                        background: #e8f5e9;
+                        color: #2c5530;
+                        border-radius: 20px;
+                        font-size: 14px;
+                        margin-bottom: 15px;
+                    }
+
+                    .activity-content h3 {
+                        font-size: 22px;
+                        color: #333;
+                        margin-bottom: 12px;
+                        line-height: 1.4;
+                    }
+
+                    .activity-content p {
+                        color: #666;
+                        margin-bottom: 20px;
+                        line-height: 1.6;
+                        font-size: 15px;
+                    }
+
+                    .activity-info {
+                        display: grid;
+                        grid-template-columns: repeat(1, 1fr);
+                        gap: 12px;
+                        margin-bottom: 25px;
+                        margin-top: auto;
+                    }
+
+                    .info-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        color: #666;
+                        font-size: 14px;
+                        padding: 8px 12px;
+                        background: #f8f9fa;
+                        border-radius: 8px;
+                    }
+
+                    .info-item i {
+                        color: #2c5530;
+                        width: 16px;
+                        text-align: center;
+                    }
+
+                    .signup-btn {
+                        width: 100%;
+                        padding: 14px;
+                        background: #2c5530;
+                        color: white;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                        margin-top: auto;
+                    }
+
+                    .signup-btn:hover {
+                        background: #234426;
+                        transform: translateY(-2px);
+                    }
+
+                    @media (max-width: 768px) {
+                        .activities-grid {
+                            grid-template-columns: 1fr;
+                            gap: 25px;
+                        }
+
+                        .activity-content {
+                            padding: 20px;
+                        }
+
+                        .activity-content h3 {
+                            font-size: 20px;
+                        }
+
+                        .activity-info {
+                            gap: 10px;
+                        }
+
+                        .info-item {
+                            padding: 6px 10px;
+                            font-size: 13px;
+                        }
+                    }
+                </style>
+            </section>
+        </main>
+
+        <!-- AI 助手对话窗口 -->
+        <div class="chat-widget">
+            <div class="chat-button" onclick="toggleChat()">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chat-window" id="chatWindow">
+                <!-- 聊天窗口内容 -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
